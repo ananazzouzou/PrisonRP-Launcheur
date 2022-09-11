@@ -1,7 +1,7 @@
 {
     "name": "PrisonRP-Launcheur",
     "preductname": "PrisonRP",
-    "version": "1.0.2",
+    "version": "1.0.3",
     "description": "Launcher Mincraft pour jouer au serveur PrisonRP",
     "main": "src/app.js",
     "author": "AnaNazz",
