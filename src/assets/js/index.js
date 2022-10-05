@@ -22,9 +22,7 @@ class Splash {
 
     async startAnimation() {
         let splashes = [
-            { "message": "Je... vie...", "author": "AnaNazz" },
-            { "message": "Salut je suis du code.", "author": "AnaNazz" },
-            { "message": "Linux n' ai pas un os, mais un kernel.", "author": "AnaNazz" }
+            { "message": "Je suis !", "author": "AnaNazz" },
         ];
         let splash = splashes[Math.floor(Math.random() * splashes.length)];
         this.splashMessage.textContent = splash.message;
@@ -60,6 +58,7 @@ class Splash {
         ipcRenderer.on('updateAvailable', () => {
             this.setStatus(`Mise à jour disponible !`);
             this.toggleProgress();
+            ipcRenderer.send('start-update');
         })
 
         ipcRenderer.on('download-progress', (event, progress) => {
@@ -105,9 +104,9 @@ function sleep(ms) {
     return new Promise(r => setTimeout(r, ms));
 }
 
-// document.addEventListener("keydown", (e) => {
-//     if (e.ctrlKey && e.shiftKey && e.keyCode == 73 || e.keyCode == 123) {
-//         ipcRenderer.send("update-window-dev-tools");
-//     }
-// })
+document.addEventListener("keydown", (e) => {
+    if (e.ctrlKey && e.shiftKey && e.keyCode == 73 || e.keyCode == 123) {
+        ipcRenderer.send("update-window-dev-tools");
+    }
+})
 new Splash();

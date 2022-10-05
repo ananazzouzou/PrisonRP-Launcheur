@@ -61,8 +61,8 @@ class Home {
                         </div>
                         <div class="news-content">
                             <div class="bbWrapper">
-                                <p>${News.content.replace(/\n/g, '</br>')}</p>
-                                <p class="news-author">Auteur,<span> ${News.author}</span></p>
+                                <p>${News.content}</p>
+                                <p class="news-author"><span> ${News.author}</span></p>
                             </div>
                         </div>`
                     news.appendChild(blockNews);
@@ -87,7 +87,7 @@ class Home {
     }
 
     async initLaunch() {
-        document.querySelector('.play-btn').addEventListener('click', async() => {
+        document.querySelector('.play-btn').addEventListener('click', async () => {
             let urlpkg = pkg.user ? `${pkg.url}/${pkg.user}` : pkg.url;
             let uuid = (await this.database.get('1234', 'accounts-selected')).value;
             let account = (await this.database.get(uuid.selected, 'accounts')).value;
@@ -137,7 +137,7 @@ class Home {
             launch.on('progress', (DL, totDL) => {
                 progressBar.style.display = "block"
                 document.querySelector(".text-download").innerHTML = `Téléchargement ${((DL / totDL) * 100).toFixed(0)}%`
-                ipcRenderer.send('main-window-progress', {DL, totDL})
+                ipcRenderer.send('main-window-progress', { DL, totDL })
                 progressBar.value = DL;
                 progressBar.max = totDL;
             })
@@ -156,14 +156,14 @@ class Home {
 
             launch.on('data', (e) => {
                 new logger('Minecraft', '#36b030');
-                if(launcherSettings.launcher.close === 'close-launcher') ipcRenderer.send("main-window-hide");
+                if (launcherSettings.launcher.close === 'close-launcher') ipcRenderer.send("main-window-hide");
                 progressBar.style.display = "none"
                 info.innerHTML = `Demarrage en cours...`
                 console.log(e);
             })
 
             launch.on('close', () => {
-                if(launcherSettings.launcher.close === 'close-launcher') ipcRenderer.send("main-window-show");
+                if (launcherSettings.launcher.close === 'close-launcher') ipcRenderer.send("main-window-show");
                 progressBar.style.display = "none"
                 info.style.display = "none"
                 playBtn.style.display = "block"
@@ -183,11 +183,11 @@ class Home {
 
         if (!serverPing.error) {
             nameServer.textContent = this.config.status.nameServer;
-            serverMs.innerHTML = `<span class="green">En ligne</span> - ${serverPing.ms}ms`;
+            serverMs.innerHTML = `<span class="green">En ligne</span>`;
             online.classList.toggle("off");
             playersConnected.textContent = serverPing.playersConnect;
         } else if (serverPing.error) {
-            nameServer.textContent = 'Serveur indisponible';
+            nameServer.textContent = 'Prison RP';
             serverMs.innerHTML = `<span class="red">Hors ligne</span>`;
         }
     }
